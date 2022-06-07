@@ -1,0 +1,10 @@
+.content {
+  display: inline-flex;
+  justify-self: center;
+  align-self: center;
+  background-color: green;
+  width: 70%;
+  height: 20rem;
+  margin-top: 7rem;
+  border-radius: 0.5rem;
+}

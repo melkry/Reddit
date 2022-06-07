@@ -1,0 +1,30 @@
+* {
+  margin: 0;
+}
+.header {
+  position: fixed;
+  left: 0;
+  height: 5rem;
+  width: 100%;
+  background-color: grey;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+img {
+  height: 4rem;
+}
+
+.searchBar {
+  background-color: black;
+  margin: 0 0.5rem;
+  width: 40%;
+  height: 1.5rem;
+}
+
+.searchButton {
+  background-color: black;
+  width: 5rem;
+  height: 1.5rem;
+}

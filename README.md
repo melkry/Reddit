@@ -1,2 +1,3 @@
 # Reddit
-Created with CodeSandbox
+
+Created with CodeSandbox for codecademy project
