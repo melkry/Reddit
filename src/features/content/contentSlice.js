@@ -13,25 +13,48 @@ export const contentSlice = createSlice({
     isLoading: false,
     isLoaded: false,
     isError: false,
-    contents: [{ id: "id", name: "default_name", url: "url" }]
+    contents: []
   },
   reducers: {},
   extraReducers: {
     [testAPI.pending]: (state) => {
-      console.log("pending");
       state.isLoading = true;
       state.isError = false;
       state.isLoaded = false;
     },
     [testAPI.fulfilled]: (state, action) => {
-      console.log(action.payload);
       state.isLoading = false;
       state.isError = false;
       state.isLoaded = true;
       state.contents = action.payload.map((meme) => ({
+        /*title: child.data.title,
+        author: child.data.author,
+        upvotes: child.data.ups,
+        isVideo: child.data.is_video,
+        numComments: child.data.num_comments,
+        createdDate: child.data.created,
+        isSelf: child.data.is_self,
+        url: child.data.url,
+        forAdults: child.data.over_18,
+        permalink: child.data.permalink,
+        selftext: child.data.selftext,
+        media: child.data.media*/
         id: meme.id,
-        name: meme.name,
-        url: meme.url
+        subreddit: "r/all",
+        title: meme.name,
+        author: "iamnotacat11",
+        upvotes: "Upvotes",
+        isVideo: false,
+        numComments: 69,
+        createdDate: "6/11/1999",
+        isSelf: false,
+        url: "http://google.com",
+        forAdults: false,
+        permalink: "http://google.com",
+        selftext: "The description will be here if this is a selfpost.",
+        thumbnail: meme.url,
+        media: meme.url,
+        score: 69
       }));
     },
     [testAPI.rejected]: (state) => {
