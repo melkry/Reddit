@@ -1,4 +1,43 @@
 .App {
-  font-family: sans-serif;
+  font-family: "Trebuchet MS", sans-serif;
   text-align: center;
+  background-color: #1b1b40;
+}
+
+* {
+  margin: 0;
+}
+
+.color_one {
+  background-color: #57f1b1;
+}
+
+.color_two {
+  background-color: #ffb60d;
+}
+
+.color_three {
+  background-color: #43bee5;
+}
+
+.color_four {
+  background-color: white;
+}
+
+.color_five {
+  background-color: #df4c73;
+  color: white;
+}
+
+.addHover:hover {
+  background-color: #ffb60d;
+  color: white;
+}
+
+.hidden > p {
+  display: none !important;
+}
+
+.visible {
+  visibility: visible !important;
 }

@@ -1,11 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-export const testAPI = createAsyncThunk("content/testAPI", async (thunkAPI) => {
-  const response = await fetch(
-    "https://api.imgflip.com/get_memes"
-  ).then((data) => data.json());
-  return response.data.memes;
-});
+export const testAPI = createAsyncThunk(
+  "content/testAPI",
+  async (endpoint = "products", thunkAPI) => {
+    const response = await fetch(
+      `https://fakestoreapi.com/${endpoint}`
+    ).then((data) => data.json());
+    return response;
+  }
+);
 
 export const contentSlice = createSlice({
   name: "content",
@@ -13,9 +16,14 @@ export const contentSlice = createSlice({
     isLoading: false,
     isLoaded: false,
     isError: false,
+    currentSubr: "all",
     contents: []
   },
-  reducers: {},
+  reducers: {
+    changeCurrentSubr: (state, action) => {
+      state.currentSubr = action.payload;
+    }
+  },
   extraReducers: {
     [testAPI.pending]: (state) => {
       state.isLoading = true;
@@ -26,7 +34,7 @@ export const contentSlice = createSlice({
       state.isLoading = false;
       state.isError = false;
       state.isLoaded = true;
-      state.contents = action.payload.map((meme) => ({
+      state.contents = action.payload.map((thing) => ({
         /*title: child.data.title,
         author: child.data.author,
         upvotes: child.data.ups,
@@ -39,31 +47,28 @@ export const contentSlice = createSlice({
         permalink: child.data.permalink,
         selftext: child.data.selftext,
         media: child.data.media*/
-        id: meme.id,
-        subreddit: "r/all",
-        title: meme.name,
+        id: thing.id,
+        subreddit: `r/${thing.category}`,
+        title: thing.title,
         author: "iamnotacat11",
         upvotes: "Upvotes",
         isVideo: false,
         numComments: 69,
-        createdDate: "6/11/1999",
+        createdDate: "2h",
         isSelf: false,
         url: "http://google.com",
         forAdults: false,
         permalink: "http://google.com",
-        selftext: "The description will be here if this is a selfpost.",
-        thumbnail: meme.url,
-        media: meme.url,
-        score: 69
+        selftext: thing.description,
+        thumbnail: thing.image,
+        media: thing.url,
+        score: "10"
       }));
-    },
-    [testAPI.rejected]: (state) => {
-      state.isLoading = false;
-      state.isError = true;
-      state.isLoaded = false;
     }
   }
 });
+
+export const changeCurrentSubr = contentSlice.actions.changeCurrentSubr;
 
 export const selectContents = (state) => state.content.contents;
 export const selectStatus = (state) => ({
@@ -71,5 +76,7 @@ export const selectStatus = (state) => ({
   isLoaded: state.content.isLoaded,
   isError: state.content.isError
 });
+
+export const selectCurrentSubr = (state) => state.content.currentSubr;
 
 export default contentSlice.reducer;
