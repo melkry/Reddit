@@ -38,6 +38,12 @@
   display: none !important;
 }
 
-.visible {
-  visibility: visible !important;
+.activeTab {
+  padding: 2px;
+  border-bottom: solid white;
+}
+
+.inactiveTab {
+  padding: 2px;
+  border-bottom: solid rgba(255, 255, 255, 0);
 }

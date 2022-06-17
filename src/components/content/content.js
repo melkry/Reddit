@@ -3,11 +3,12 @@ import "./content.css";
 import { useDispatch, useSelector } from "react-redux";
 import { selectContents } from "../../features/content/contentSlice";
 import { selectStatus } from "../../features/content/contentSlice";
-import { testAPI } from "../../features/content/contentSlice";
+import { redditAPI } from "../../features/content/contentSlice";
 import { selectCurrentSubr } from "../../features/content/contentSlice";
 import { getComments } from "../../features/comments/commentsSlice";
 import { selectComments } from "../../features/comments/commentsSlice";
 import { clearComments } from "../../features/comments/commentsSlice";
+import { intToString } from "../../helpers";
 
 export const Content = () => {
   const dispatch = useDispatch();
@@ -33,9 +34,65 @@ export const Content = () => {
     }
   };
 
+  const displayMedia = (thing) => {
+    if (thing.isSelf) {
+      return <p id="selftext">{thing.selftext}</p>;
+    } else if (
+      thing.url.includes(".png") ||
+      thing.url.includes(".jpg") ||
+      thing.url.includes(".gif")
+    ) {
+      return (
+        <>
+          {thing.selftext && <p id="selftext">{thing.selftext}</p>}
+          <img alt="reddit-img" id="media" src={thing.url} />
+        </>
+      );
+    } else if (thing.url.includes("v.redd")) {
+      return (
+        <>
+          <img
+            alt="play"
+            id="play-button"
+            onClick={() => window.open(thing.url, "_blank")}
+            src="https://www.freeiconspng.com/thumbs/button-icon-png/play-button-icon-png-17.png"
+          />
+          <img
+            alt="reddit-vid"
+            id="media"
+            className="video"
+            onClick={() => window.open(thing.url, "_blank")}
+            src={thing.thumbnail}
+          />
+        </>
+      );
+    } else {
+      return <a href={thing.url}>Link</a>;
+    }
+  };
+
   useEffect(() => {
-    dispatch(testAPI());
+    dispatch(redditAPI());
   }, [dispatch]);
+
+  const handleClick = (e) => {
+    const hotEl = document.getElementById("hot");
+    const newEl = document.getElementById("new");
+    const topEl = document.getElementById("top");
+    const type = e.target.id;
+    const elList = [hotEl, newEl, topEl];
+    for (let elInd in elList) {
+      let el = elList[elInd];
+      if (el.classList.contains("activeTab")) {
+        el.classList.remove("activeTab");
+        el.classList.add("inactiveTab");
+      }
+    }
+    e.target.classList.remove("inactiveTab");
+    e.target.classList.add("activeTab");
+
+    dispatch(redditAPI({ subreddit: currentSubr, listing: type }));
+  };
 
   return (
     <div className="content color_four">
@@ -43,9 +100,15 @@ export const Content = () => {
         <h2>r/{currentSubr}</h2>
       </div>
       <div className="title color_five">
-        <p id="hot">Hot</p>
-        <p id="new">New</p>
-        <p id="top">Top</p>
+        <p id="hot" className="inactiveTab" onClick={handleClick}>
+          Hot
+        </p>
+        <p id="new" className="inactiveTab" onClick={handleClick}>
+          New
+        </p>
+        <p id="top" className="inactiveTab" onClick={handleClick}>
+          Top
+        </p>
       </div>
       {isLoading ? <p>Loading content...</p> : null}
       {isError ? <p>Error! Check your connection...</p> : null}
@@ -54,20 +117,14 @@ export const Content = () => {
           return (
             <div className="content-container color_three" key={thing.id}>
               <div className="post-upvote">
-                <p className="color_one">{thing.score}</p>
+                <p className="color_one">{intToString(thing.score)}</p>
               </div>
               <div className="post-content">
                 <h2 id="title">{thing.title}</h2>
-                {thing.isSelf ? (
-                  <p id="selftext">{thing.selftext}</p>
-                ) : (
-                  <img alt="media" id="media" src={thing.thumbnail} />
-                )}
+                {displayMedia(thing)}
                 <div id="details">
                   <p id="subreddit">{thing.subreddit}</p>
-                  <p id="authorDate">
-                    {thing.author} {thing.createdDate}
-                  </p>
+                  <p id="authorDate">{thing.author}</p>
                   <p
                     id="numComments"
                     className="addHover"
@@ -77,7 +134,7 @@ export const Content = () => {
                       src="http://cdn.onlinewebfonts.com/svg/img_420387.png"
                       alt="comments"
                     />
-                    {thing.numComments}
+                    {intToString(thing.numComments)}
                   </p>
                 </div>
                 <div className="comments">

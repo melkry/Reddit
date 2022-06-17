@@ -27,21 +27,6 @@
   align-self: center;
 }
 
-.title #hot {
-  padding: 2px;
-  border-bottom: solid white;
-}
-
-.title #new {
-  padding: 2px;
-  border-bottom: solid rgba(255, 255, 255, 0);
-}
-
-.title #top {
-  padding: 2px;
-  border-bottom: solid rgba(255, 255, 255, 0);
-}
-
 .title #hot:hover {
   border-bottom: solid rgba(255, 255, 255);
 }
@@ -76,6 +61,7 @@
   justify-content: center;
   align-items: center;
   box-shadow: 3px 3px 3px #babacc;
+  overflow-wrap: break-word;
 }
 
 .content-container .post-upvote {
@@ -102,18 +88,26 @@
 .content-container #title {
   font-size: 1rem;
   padding: 1rem;
+  margin-top: 0.8rem;
+}
+
+.content-container #selftext {
+  width: 100%;
 }
 
 .content-container #media {
   border-radius: 0.5rem;
-  height: 20rem;
-  max-width: 25rem;
   box-shadow: 3px 3px 3px darkslateblue;
+  max-width: 100%;
 }
 
-.content-container img {
-  height: 100%;
-  width: 100%;
+.content-container #play-button {
+  z-index: 1;
+  position: absolute;
+}
+
+.content-container #media img {
+  max-width: 100%;
 }
 
 .content-container #details {

@@ -1,7 +1,7 @@
 import React from "react";
 import "./header.css";
 import { useDispatch } from "react-redux";
-import { testAPI } from "../../features/content/contentSlice";
+import { redditAPI } from "../../features/content/contentSlice";
 import { changeCurrentSubr } from "../../features/content/contentSlice";
 
 export const Header = () => {
@@ -10,7 +10,7 @@ export const Header = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const search = document.getElementById("searchBar").value;
-    dispatch(testAPI(`products/category/${search}`));
+    dispatch(redditAPI({ subreddit: search, listing: "hot" }));
     dispatch(changeCurrentSubr(search));
   };
 

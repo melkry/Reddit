@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-export const testAPI = createAsyncThunk(
-  "content/testAPI",
-  async (endpoint = "products", thunkAPI) => {
+export const redditAPI = createAsyncThunk(
+  "content/redditAPI",
+  async (subrInfo = { subreddit: "all", listing: "hot" }, thunkAPI) => {
+    const { subreddit, listing } = subrInfo;
     const response = await fetch(
-      `https://fakestoreapi.com/${endpoint}`
+      `https://www.reddit.com/r/${subreddit}/${listing}.json?limit=100`
     ).then((data) => data.json());
-    return response;
+    return response.data.children;
   }
 );
 
@@ -25,45 +26,35 @@ export const contentSlice = createSlice({
     }
   },
   extraReducers: {
-    [testAPI.pending]: (state) => {
+    [redditAPI.pending]: (state) => {
       state.isLoading = true;
       state.isError = false;
       state.isLoaded = false;
     },
-    [testAPI.fulfilled]: (state, action) => {
+    [redditAPI.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.isError = false;
       state.isLoaded = true;
       state.contents = action.payload.map((thing) => ({
-        /*title: child.data.title,
-        author: child.data.author,
-        upvotes: child.data.ups,
-        isVideo: child.data.is_video,
-        numComments: child.data.num_comments,
-        createdDate: child.data.created,
-        isSelf: child.data.is_self,
-        url: child.data.url,
-        forAdults: child.data.over_18,
-        permalink: child.data.permalink,
-        selftext: child.data.selftext,
-        media: child.data.media*/
-        id: thing.id,
-        subreddit: `r/${thing.category}`,
-        title: thing.title,
-        author: "iamnotacat11",
-        upvotes: "Upvotes",
-        isVideo: false,
-        numComments: 69,
-        createdDate: "2h",
-        isSelf: false,
-        url: "http://google.com",
-        forAdults: false,
-        permalink: "http://google.com",
-        selftext: thing.description,
-        thumbnail: thing.image,
-        media: thing.url,
-        score: "10"
+        id: thing.data.id,
+        subreddit: `r/${thing.data.subreddit}`,
+        title: thing.data.title,
+        author: thing.data.author,
+        isVideo: thing.data.isVideo,
+        numComments: thing.data.num_comments,
+        isSelf: thing.data.is_self,
+        url: thing.data.url,
+        forAdults: thing.data.over_18,
+        permalink: thing.data.permalink,
+        selftext: thing.data.selftext,
+        thumbnail: thing.data.thumbnail,
+        video: thing.data.url_overridden_by_dest,
+        score: thing.data.score
       }));
+    },
+    [redditAPI.rejected]: (state) => {
+      state.isLoading = false;
+      state.isError = true;
     }
   }
 });
