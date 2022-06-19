@@ -7,6 +7,7 @@ import { redditAPI } from "../../features/content/contentSlice";
 import { selectCurrentSubr } from "../../features/content/contentSlice";
 import { getComments } from "../../features/comments/commentsSlice";
 import { selectComments } from "../../features/comments/commentsSlice";
+import { selectCommentStatus } from "../../features/comments/commentsSlice";
 import { clearComments } from "../../features/comments/commentsSlice";
 import { intToString } from "../../helpers";
 
@@ -16,14 +17,9 @@ export const Content = () => {
   const currentSubr = useSelector(selectCurrentSubr);
   const comments = useSelector(selectComments);
   const { isLoading, isError } = useSelector(selectStatus);
-
-  const renderComments = () => {
-    if (comments[0]) {
-      dispatch(clearComments());
-    } else {
-      dispatch(getComments());
-    }
-  };
+  const { isCommentsLoading, isCommentsError } = useSelector(
+    selectCommentStatus
+  );
 
   const hideComment = (e) => {
     const commEl = e.target.parentElement;
@@ -128,7 +124,11 @@ export const Content = () => {
                   <p
                     id="numComments"
                     className="addHover"
-                    onClick={renderComments}
+                    onClick={() =>
+                      !comments[0]
+                        ? dispatch(getComments(thing.permalink))
+                        : dispatch(clearComments())
+                    }
                   >
                     <img
                       src="http://cdn.onlinewebfonts.com/svg/img_420387.png"
@@ -138,22 +138,26 @@ export const Content = () => {
                   </p>
                 </div>
                 <div className="comments">
-                  {comments.map((comm) => {
-                    return (
-                      <div
-                        className="comment color_two"
-                        id={comm.id}
-                        onClick={hideComment}
-                      >
-                        <div id="userTime">
-                          <p id="commUser">{comm.userName}</p>
-                          <p id="commTimestamp">2h</p>
+                  {isCommentsLoading ? <p>loading comments...</p> : null}
+                  {isCommentsError ? <p>Error loading comments...</p> : null}
+                  {comments
+                    .filter((el) => el.postId === thing.id)
+                    .map((comm) => {
+                      return (
+                        <div
+                          className="comment color_two"
+                          id={comm.id}
+                          onClick={hideComment}
+                        >
+                          <div id="userTime">
+                            <p id="commUser">{comm.userName}</p>
+                            <p id="commTimestamp">2h</p>
+                          </div>
+                          <p id="commBody">{comm.body}</p>
+                          <p id="commScore">{comm.score}</p>
                         </div>
-                        <p id="commBody">{comm.body}</p>
-                        <p id="commScore">score</p>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
                 </div>
               </div>
             </div>

@@ -98,7 +98,8 @@
 .content-container #media {
   border-radius: 0.5rem;
   box-shadow: 3px 3px 3px darkslateblue;
-  max-width: 100%;
+  width: 100%;
+  height: auto;
 }
 
 .content-container #play-button {

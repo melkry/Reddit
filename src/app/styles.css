@@ -34,7 +34,8 @@
   color: white;
 }
 
-.hidden > p {
+.hidden > #commBody,
+#commScore #commScore {
   display: none !important;
 }
 

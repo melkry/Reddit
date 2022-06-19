@@ -1,11 +1,8 @@
 {
-  "name": "react",
+  "name": "r-client",
   "version": "1.0.0",
-  "description": "React example starter project",
-  "keywords": [
-    "react",
-    "starter"
-  ],
+  "description": "",
+  "keywords": [],
   "main": "src/index.js",
   "dependencies": {
     "@reduxjs/toolkit": "1.8.2",

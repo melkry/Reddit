@@ -2,11 +2,11 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getComments = createAsyncThunk(
   "comments/getComments",
-  async (thunkAPI) => {
+  async (permalink, thunkAPI) => {
     const response = await fetch(
-      "https://dummyjson.com/comments"
+      `https://www.reddit.com${permalink}.json`
     ).then((data) => data.json());
-    return response.comments;
+    return response[1].data.children;
   }
 );
 
@@ -31,11 +31,12 @@ export const commentsSlice = createSlice({
       state.isLoading = false;
       state.isError = false;
       state.comments = action.payload.map((comm) => ({
-        id: comm.id,
-        body: comm.body,
-        postId: comm.postId,
-        userId: comm.user.id,
-        userName: comm.user.username
+        id: comm.data.id,
+        body: comm.data.body,
+        postId: comm.data.parent_id.slice(3),
+        userId: comm.data.author_fullname,
+        userName: comm.data.author,
+        score: comm.data.score
       }));
     },
     [getComments.rejected]: (state) => {
