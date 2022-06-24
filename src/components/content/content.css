@@ -39,6 +39,16 @@
   border-bottom: solid rgba(255, 255, 255);
 }
 
+.activeTab {
+  padding: 2px;
+  border-bottom: solid white;
+}
+
+.inactiveTab {
+  padding: 2px;
+  border-bottom: solid rgba(255, 255, 255, 0);
+}
+
 /* Posts */
 
 .posts {
@@ -60,7 +70,7 @@
   max-width: 40rem;
   justify-content: center;
   align-items: center;
-  box-shadow: 3px 3px 3px #babacc;
+  box-shadow: 3px 3px 3px;
   overflow-wrap: break-word;
 }
 
@@ -97,7 +107,7 @@
 
 .content-container #media {
   border-radius: 0.5rem;
-  box-shadow: 3px 3px 3px darkslateblue;
+  box-shadow: 3px 3px 3px;
   width: 100%;
   height: auto;
 }
@@ -141,6 +151,11 @@
 
 /* Comments */
 
+.hidden > #commBody,
+#commScore #commScore {
+  display: none !important;
+}
+
 .content-container .comments {
   margin-top: 1rem;
   width: 100%;
@@ -160,19 +175,10 @@
   padding: 5px;
 }
 
-.comment #userTime {
+.comment #commUser {
   display: inline-flex;
   width: 100%;
   border-bottom: 1px solid black;
-}
-
-.comment #commTimestamp {
-  padding: 0px 0.5rem;
-  font-size: 0.8rem;
-  align-self: center;
-}
-
-.comment #commUser {
   font-weight: bold;
 }
 
@@ -184,6 +190,11 @@
   font-size: 0.8rem;
   width: 100%;
   text-align: right;
+}
+
+.hidden > #commBody,
+#commScore #commScore {
+  display: none !important;
 }
 
 /* For mobile phones: */

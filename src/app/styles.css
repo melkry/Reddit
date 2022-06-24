@@ -1,27 +1,27 @@
+* {
+  margin: 0;
+}
+
 .App {
   font-family: "Trebuchet MS", sans-serif;
   text-align: center;
   background-color: #1b1b40;
 }
 
-* {
-  margin: 0;
-}
-
 .color_one {
-  background-color: #57f1b1;
+  background-color: #52b7e9;
 }
 
 .color_two {
-  background-color: #ffb60d;
+  background-color: #52b7e9;
 }
 
 .color_three {
-  background-color: #43bee5;
+  background-color: #189de4;
 }
 
 .color_four {
-  background-color: white;
+  background-color: #146ca4;
 }
 
 .color_five {
@@ -32,19 +32,4 @@
 .addHover:hover {
   background-color: #ffb60d;
   color: white;
-}
-
-.hidden > #commBody,
-#commScore #commScore {
-  display: none !important;
-}
-
-.activeTab {
-  padding: 2px;
-  border-bottom: solid white;
-}
-
-.inactiveTab {
-  padding: 2px;
-  border-bottom: solid rgba(255, 255, 255, 0);
 }

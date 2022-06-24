@@ -4,12 +4,11 @@
   left: 0;
   height: 5rem;
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.9);
   display: inline-flex;
   justify-content: center;
   align-items: center;
   border-top: 0.3rem solid #df4c73;
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid black;
 }
 
 img {
@@ -20,8 +19,9 @@ img {
   margin: 0 0.5rem;
   width: 20%;
   height: 1.5rem;
-  border: 1px solid grey;
+  border: 1px solid black;
   border-radius: 0.5rem;
+  background-color: white !important;
 }
 
 .submit {

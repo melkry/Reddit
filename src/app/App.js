@@ -1,6 +1,6 @@
-import "./styles.css";
 import { Header } from "../components/header/header";
 import { Content } from "../components/content/content";
+import "./styles.css";
 
 export default function App() {
   return (

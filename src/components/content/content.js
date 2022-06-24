@@ -10,6 +10,7 @@ import { selectComments } from "../../features/comments/commentsSlice";
 import { selectCommentStatus } from "../../features/comments/commentsSlice";
 import { clearComments } from "../../features/comments/commentsSlice";
 import { intToString } from "../../helpers";
+import { changeTheme } from "../../features/themes/themesSlice";
 
 export const Content = () => {
   const dispatch = useDispatch();
@@ -69,6 +70,7 @@ export const Content = () => {
 
   useEffect(() => {
     dispatch(redditAPI());
+    dispatch(changeTheme("dark"));
   }, [dispatch]);
 
   const handleClick = (e) => {
@@ -107,7 +109,9 @@ export const Content = () => {
         </p>
       </div>
       {isLoading ? <p>Loading content...</p> : null}
-      {isError ? <p>Error! Check your connection...</p> : null}
+      {isError ? (
+        <p>Error! Please enter a valid subreddit or check your connection...</p>
+      ) : null}
       <div className="posts color_four">
         {contents.map((thing) => {
           return (
@@ -151,7 +155,6 @@ export const Content = () => {
                         >
                           <div id="userTime">
                             <p id="commUser">{comm.userName}</p>
-                            <p id="commTimestamp">2h</p>
                           </div>
                           <p id="commBody">{comm.body}</p>
                           <p id="commScore">{comm.score}</p>
