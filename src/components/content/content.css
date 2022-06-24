@@ -108,17 +108,33 @@
 .content-container #media {
   border-radius: 0.5rem;
   box-shadow: 3px 3px 3px;
-  width: 100%;
-  height: auto;
+  width: 70%;
+  height: 70%;
+  position: relative;
+  overflow: hidden;
 }
 
-.content-container #play-button {
+.video {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.video #play-button {
   z-index: 1;
   position: absolute;
 }
 
+.vidImg {
+  width: 100%;
+  height: auto;
+}
+
 .content-container #media img {
-  max-width: 100%;
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
 }
 
 .content-container #details {

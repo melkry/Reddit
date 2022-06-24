@@ -19,6 +19,7 @@ export const Header = () => {
       <img
         alt="reddit logo"
         src="https://www.redditinc.com/assets/images/site/reddit-logo.png"
+        loading="lazy"
       />
       <input
         id="searchBar"

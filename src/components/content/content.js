@@ -10,7 +10,6 @@ import { selectComments } from "../../features/comments/commentsSlice";
 import { selectCommentStatus } from "../../features/comments/commentsSlice";
 import { clearComments } from "../../features/comments/commentsSlice";
 import { intToString } from "../../helpers";
-import { changeTheme } from "../../features/themes/themesSlice";
 
 export const Content = () => {
   const dispatch = useDispatch();
@@ -42,26 +41,28 @@ export const Content = () => {
       return (
         <>
           {thing.selftext && <p id="selftext">{thing.selftext}</p>}
-          <img alt="reddit-img" id="media" src={thing.url} />
+          <img alt="reddit-img" id="media" loading="lazy" src={thing.url} />
         </>
       );
     } else if (thing.url.includes("v.redd")) {
       return (
-        <>
+        <div className="video">
           <img
             alt="play"
             id="play-button"
+            loading="lazy"
             onClick={() => window.open(thing.url, "_blank")}
             src="https://www.freeiconspng.com/thumbs/button-icon-png/play-button-icon-png-17.png"
           />
           <img
             alt="reddit-vid"
-            id="media"
-            className="video"
+            id="#media"
+            className="vidImg"
+            loading="lazy"
             onClick={() => window.open(thing.url, "_blank")}
             src={thing.thumbnail}
           />
-        </>
+        </div>
       );
     } else {
       return <a href={thing.url}>Link</a>;
@@ -70,7 +71,6 @@ export const Content = () => {
 
   useEffect(() => {
     dispatch(redditAPI());
-    dispatch(changeTheme("dark"));
   }, [dispatch]);
 
   const handleClick = (e) => {
@@ -137,6 +137,7 @@ export const Content = () => {
                     <img
                       src="http://cdn.onlinewebfonts.com/svg/img_420387.png"
                       alt="comments"
+                      loading="lazy"
                     />
                     {intToString(thing.numComments)}
                   </p>

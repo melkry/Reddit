@@ -5,7 +5,7 @@ export const redditAPI = createAsyncThunk(
   async (subrInfo = { subreddit: "all", listing: "hot" }, thunkAPI) => {
     const { subreddit, listing } = subrInfo;
     const response = await fetch(
-      `https://www.reddit.com/r/${subreddit}/${listing}.json?limit=100`
+      `https://www.reddit.com/r/${subreddit}/${listing}.json?limit=10`
     ).then((data) => data.json());
     return response.data.children;
   }
