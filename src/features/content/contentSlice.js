@@ -48,6 +48,8 @@ export const contentSlice = createSlice({
         permalink: thing.data.permalink,
         selftext: thing.data.selftext,
         thumbnail: thing.data.thumbnail,
+        height: thing.data.thumbnail_height,
+        width: thing.data.thumbnail_width,
         video: thing.data.url_overridden_by_dest,
         score: thing.data.score
       }));

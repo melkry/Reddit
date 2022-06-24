@@ -135,7 +135,7 @@ export const Content = () => {
                     }
                   >
                     <img
-                      src="http://cdn.onlinewebfonts.com/svg/img_420387.png"
+                      src="https://i.imgur.com/UhZWNju.png"
                       alt="comments"
                       loading="lazy"
                     />

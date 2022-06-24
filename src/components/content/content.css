@@ -105,13 +105,17 @@
   width: 100%;
 }
 
-.content-container #media {
+#media {
   border-radius: 0.5rem;
   box-shadow: 3px 3px 3px;
-  width: 70%;
-  height: 70%;
-  position: relative;
-  overflow: hidden;
+  width: 100%;
+  height: auto;
+}
+
+#media img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .video {
@@ -128,13 +132,6 @@
 .vidImg {
   width: 100%;
   height: auto;
-}
-
-.content-container #media img {
-  position: absolute;
-  display: block;
-  top: 0;
-  left: 0;
 }
 
 .content-container #details {
